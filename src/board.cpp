@@ -129,6 +129,22 @@ void checkSteps(char* txt, char board[][8])
                     exit(1);
                 }
             }
+            if (pars == 5) {
+                if ((int)target >= 97 && (int)target <= 104) {
+                    pars++;
+                    char bufer_temp[2] = {target, '\0'};
+                    strcat(white.to, bufer_temp);
+                    target = fgetc(input_file);
+                    continue;
+                } else {
+                    printf(ANSI_COLOR_RED
+                           "ERROR in %s line. Was exepted [a-h] -> found - "
+                           "%c\n" ANSI_COLOR_RESET,
+                           white.num,
+                           target);
+                    exit(1);
+                }
+            }
         }
     }
 }
