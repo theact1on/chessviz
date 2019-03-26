@@ -10,4 +10,13 @@
 
 void checkSteps(char* txt, char board[][8])
 {
+    printf("\n");
+    FILE* input_file;
+    input_file = fopen(txt, "a+");
+    if (input_file == NULL) {
+        printf("Cannot open file\n ERROR #1");
+    }
+    rewind(input_file);
+    while (!feof(input_file)) {
+    }
 }
