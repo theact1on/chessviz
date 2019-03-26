@@ -161,6 +161,28 @@ void checkSteps(char* txt, char board[][8])
                     exit(1);
                 }
             }
+            if (pars == 7) {
+                if (target == '#' || target == '+' || target == 'K'
+                    || target == 'Q' || target == 'R' || target == 'B'
+                    || target == 'N' || target == 'e') {
+                    white.shah_mat = target;
+                    target = fgetc(input_file);
+                    if (target == 'e') {
+                        target = fgetc(input_file);
+                        target = fgetc(input_file);
+                        target = fgetc(input_file);
+                    }
+                    continue;
+                } else {
+                    printf(ANSI_COLOR_RED
+                           "ERROR in %s line. Was exepted [#|+|e.p|FIGURE| ] "
+                           "-> found - "
+                           "%c\n" ANSI_COLOR_RESET,
+                           white.num,
+                           target);
+                    exit(1);
+                }
+            }
         }
     }
 }
