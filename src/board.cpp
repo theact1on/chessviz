@@ -18,5 +18,23 @@ void checkSteps(char* txt, char board[][8])
     }
     rewind(input_file);
     while (!feof(input_file)) {
+        char target = fgetc(input_file);
+        step_white white;
+        int pars = 1;
+        while (target != ' ') {
+            if (!isdigit(target) && target != '.') {
+                printf(ANSI_COLOR_RED
+                       "ERROR. Was exepted digit -> "
+                       "found - %c\n" ANSI_COLOR_RESET,
+                       target);
+                exit(1);
+            }
+            if (target == '.') {
+                target = fgetc(input_file);
+                continue;
+            }
+            char bufer_temp[2] = {target, '\0'};
+            strcat(white.num, bufer_temp);
+        }
     }
 }
