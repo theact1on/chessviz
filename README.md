@@ -18,14 +18,14 @@ $ make
 #### The program accepts a file containing a string of chess notation as input.
 #### Grammar:
 ```
-СписокХодов = {ЗаписьХода ПереводСтроки}
-ЗаписьХода = НомерХода. Ход Ход
-Ход = [ТипФигуры] Поле ТипХода Поле [ТипФигуры | 'e.p.' | '+' | '#']
-    | Рокировка
-ТипФигуры = 'K' | 'Q' | 'R' | 'B' | 'N'
-Поле = /[a-h][1-8]/
-ТипХода = '-' | 'x'
-Рокировка = '0-0-0' | '0-0'
+ListMoves = {RecordOfMove LineTranslation}
+RecordOfMove = MoveNumber. Move Move
+Move = [TypeOfFigure] Field TypeOfMove Field [TypeOfFigure | 'e.p.' | '+' | '#' ] 
+    | Castling
+TypeOfFigure = 'K' | 'Q' | 'R' | 'B' | 'N'
+Field = /[a-h][1-8]/
+TypeOfMove = '-' | 'x'
+Castling = '0-0-0' | '0-0'
 ```
 
 #### Example:
