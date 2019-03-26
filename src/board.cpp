@@ -35,6 +35,16 @@ void checkSteps(char* txt, char board[][8])
             }
             char bufer_temp[2] = {target, '\0'};
             strcat(white.num, bufer_temp);
+            target = fgetc(input_file);
+        }
+
+        target = fgetc(input_file);
+        bool its_black = false;
+        while (1) {
         }
     }
+}
+
+void moveFigures(step_white* white_step, char board[][8])
+{
 }

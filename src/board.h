@@ -28,4 +28,5 @@ struct step_white {
 };
 
 void checkSteps(char* txt, char board[][8]);
+void moveFigures(step_white* white_step, char board[][8]);
 #endif
