@@ -53,6 +53,35 @@ void checkSteps(char* txt, char board[][8])
                 pars = 1;
                 target = fgetc(input_file);
             }
+            if (pars == 1) {
+                if (target == 'K' || target == 'Q' || target == 'R'
+                    || target == 'B' || target == 'N'
+                    || ((int)target >= 94 && (int)target <= 122)) {
+                    if ((int)target < 94 || (int)target > 122) {
+                        if (its_black) {
+                            white.figure = (char)(target + 32);
+                            target = fgetc(input_file);
+                        } else {
+                            white.figure = target;
+                            target = fgetc(input_file);
+                        }
+                    } else {
+                        if (its_black) {
+                            white.figure = 'p';
+                        }
+                    }
+                    its_black = !its_black;
+                    pars++;
+                    continue;
+                } else {
+                    printf(ANSI_COLOR_RED
+                           "ERROR in %s line. Was exepted [K|Q|R|N|B| ] -> "
+                           "found - %c\n" ANSI_COLOR_RESET,
+                           white.num,
+                           target);
+                    exit(1);
+                }
+            }
         }
     }
 }
