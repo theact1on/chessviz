@@ -237,4 +237,17 @@ void moveFigures(step_white* white_step, char board[][8])
                "\n" ANSI_COLOR_RESET);
         exit(1);
     }
+
+    char str_info[30];
+    white_step->figure = toupper(white_step->figure);
+    sprintf(str_info,
+            "%s. %c%s%c%s%c",
+            white_step->num,
+            white_step->figure,
+            white_step->from,
+            white_step->how,
+            white_step->to,
+            white_step->shah_mat);
+
+    outputHTML(board, str_info);
 }
