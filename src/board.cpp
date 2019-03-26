@@ -41,6 +41,18 @@ void checkSteps(char* txt, char board[][8])
         target = fgetc(input_file);
         bool its_black = false;
         while (1) {
+            if (target == ' ' || target == '\n' || target == EOF) {
+                if (target == '\n' || target == EOF) {
+                    moveFigures(&white, board);
+                    white.clean();
+                    its_black = false;
+                    break;
+                }
+                moveFigures(&white, board);
+                white.clean();
+                pars = 1;
+                target = fgetc(input_file);
+            }
         }
     }
 }
