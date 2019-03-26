@@ -63,6 +63,17 @@ int main(int argc, char* argv[])
     fclose(output_html);
     char str_start[30] = "0. start_position";
     outputHTML(board, str_start);
+    switch (argc) {
+    case 1:
+        // stepsFromConsole();
+        break;
+    case 2:
+        checkSteps(argv[1], board);
+        break;
+    default:
+        printf("Не верные входные данные");
+        return 1;
+    }
     output_html = fopen("chessviz.html", "a+");
     fprintf(output_html, R"(</body>
         </html>)");
