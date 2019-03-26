@@ -189,4 +189,14 @@ void checkSteps(char* txt, char board[][8])
 
 void moveFigures(step_white* white_step, char board[][8])
 {
+    if ((int)white_step->from[0] < 97 || (int)white_step->from[0] > 104
+        || (int)white_step->from[1] < 49 || (int)white_step->from[1] > 56) {
+        printf(ANSI_COLOR_RED "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+                              " line. ERROR. Field " ANSI_COLOR_GREEN
+                              "%s" ANSI_COLOR_RED " not found.\n",
+               white_step->num,
+               white_step->from);
+        printf("ERROR>>FIELD_NOT_FOUND\nExiting...\n" ANSI_COLOR_RESET);
+        exit(1);
+    }
 }
