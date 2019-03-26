@@ -1,4 +1,4 @@
-<p align="center" style="font-size:200%"><img src="https://img.icons8.com/dusk/64/000000/chess.png">Chessviz</p>
+<p align="center" style="font-size:200%"><img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1ULdyRKnaAoDfw-VbxXqWtyN8HWK187Bg" height="50%" width="50%"></p>
 <p align="center"><a href="https://travis-ci.org/luparev22/chessviz"><img src="https://travis-ci.org/luparev22/chessviz.svg?branch=master"></a></p>
 
 # About chessviz
