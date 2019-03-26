@@ -114,6 +114,21 @@ void checkSteps(char* txt, char board[][8])
                     exit(1);
                 }
             }
+            if (pars == 4) {
+                if (target == '-' || target == 'x') {
+                    pars++;
+                    white.how = target;
+                    target = fgetc(input_file);
+                    continue;
+                } else {
+                    printf(ANSI_COLOR_RED
+                           "ERROR in %s line. Was exepted [-|x] -> found - "
+                           "%c\n" ANSI_COLOR_RESET,
+                           white.num,
+                           target);
+                    exit(1);
+                }
+            }
         }
     }
 }
