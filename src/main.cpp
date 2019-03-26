@@ -1,5 +1,9 @@
+#include "board.h"
+#include "board_print_html.h"
 #include "stdio.h"
 #include "stdlib.h"
+#define ANSI_COLOR_GREEN "\x1b[32m"
+#define ANSI_COLOR_RESET "\x1b[0m"
 
 int main(int argc, char* argv[])
 {
@@ -56,58 +60,25 @@ int main(int argc, char* argv[])
       </style>
         </head>
         <body>)");
-
-    fprintf(output_html,
-            "\n"
-            R"(<table class="chessboard">)");
-    for (int i = 0; i < 8; i++) {
-        fprintf(output_html,
-                "\n"
-                R"(<tr>)");
-        for (int j = 0; j < 8; j++) {
-            fprintf(output_html,
-                    "\n"
-                    R"(<td>)");
-            if (board[i][j] != ' ') {
-                if (board[i][j] == 'r')
-                    fprintf(output_html, R"(<span class="black rook"></span>)");
-                if (board[i][j] == 'n')
-                    fprintf(output_html,
-                            R"(<span class="black knight"></span>)");
-                if (board[i][j] == 'b')
-                    fprintf(output_html,
-                            R"(<span class="black bishop"></span>)");
-                if (board[i][j] == 'q')
-                    fprintf(output_html,
-                            R"(<span class="black queen"></span>)");
-                if (board[i][j] == 'k')
-                    fprintf(output_html, R"(<span class="black king"></span>)");
-                if (board[i][j] == 'p')
-                    fprintf(output_html, R"(<span class="black pawn"></span>)");
-                if (board[i][j] == 'R')
-                    fprintf(output_html, R"(<span class="white rook"></span>)");
-                if (board[i][j] == 'N')
-                    fprintf(output_html,
-                            R"(<span class="white knight"></span>)");
-                if (board[i][j] == 'B')
-                    fprintf(output_html,
-                            R"(<span class="white bishop"></span>)");
-                if (board[i][j] == 'Q')
-                    fprintf(output_html,
-                            R"(<span class="white queen"></span>)");
-                if (board[i][j] == 'K')
-                    fprintf(output_html, R"(<span class="white king"></span>)");
-                if (board[i][j] == 'P')
-                    fprintf(output_html, R"(<span class="white pawn"></span>)");
-            }
-            fprintf(output_html, R"(</td>)");
-        }
-        fprintf(output_html, R"(</tr>)");
+    fclose(output_html);
+    char str_start[30] = "0. start_position";
+    outputHTML(board, str_start);
+    switch (argc) {
+    case 1:
+        // stepsFromConsole();
+        break;
+    case 2:
+        checkSteps(argv[1], board);
+        break;
+    default:
+        printf("Не верные входные данные");
+        return 1;
     }
-    fprintf(output_html, R"(</table>)");
-
+    output_html = fopen("chessviz.html", "a+");
     fprintf(output_html, R"(</body>
         </html>)");
     fclose(output_html);
+    printf(ANSI_COLOR_GREEN
+           "----------------ALL SUCCESS----------------\n\n" ANSI_COLOR_RESET);
     return 0;
 }
