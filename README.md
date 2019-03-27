@@ -1,5 +1,8 @@
 <p align="center" style="font-size:200%"><img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1ULdyRKnaAoDfw-VbxXqWtyN8HWK187Bg" height="50%" width="50%"></p>
-<p align="center"><a href="https://travis-ci.org/luparev22/chessviz"><img src="https://travis-ci.org/luparev22/chessviz.svg?branch=master"></a></p>
+<p align="center"><a href="https://travis-ci.org/luparev22/chessviz"><img src="https://travis-ci.org/luparev22/chessviz.svg?branch=master"></a> <img src="https://img.shields.io/github/downloads/luparev22/chessviz/total.svg"> <img src="https://img.shields.io/github/repo-size/luparev22/chessviz.svg?color=4dc71f">
+<br>
+<img src="https://img.shields.io/github/tag/luparev22/chessviz.svg?label=version"> <img src="https://img.shields.io/github/license/luparev22/chessviz.svg?color=1283c3"> <img src="https://img.shields.io/github/last-commit/luparev22/chessviz.svg?color=1283c3">
+</p>
 
 # About chessviz
 
