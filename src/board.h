@@ -7,10 +7,10 @@
 #include <string.h>
 
 struct step_white {
-    char num[5];
+    char num[5] = "";
     char figure = 'P';
-    char from[3];
-    char to[3];
+    char from[3] = "";
+    char to[3] = "";
     char how = ' ';
     char shah_mat = ' ';
     void clean()
