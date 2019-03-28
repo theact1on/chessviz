@@ -1,8 +1,19 @@
+
+
+
 <p align="center" style="font-size:200%"><img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1ULdyRKnaAoDfw-VbxXqWtyN8HWK187Bg" height="50%" width="50%"></p>
 <p align="center"><a href="https://travis-ci.org/luparev22/chessviz"><img src="https://travis-ci.org/luparev22/chessviz.svg?branch=master"></a> <img src="https://img.shields.io/github/downloads/luparev22/chessviz/total.svg"> <img src="https://img.shields.io/github/repo-size/luparev22/chessviz.svg?color=4dc71f">
 <br>
-<img src="https://img.shields.io/github/tag/luparev22/chessviz.svg?label=version"> <img src="https://img.shields.io/github/license/luparev22/chessviz.svg?color=1283c3"> <img src="https://img.shields.io/github/last-commit/luparev22/chessviz.svg?color=1283c3">
+<img src="https://img.shields.io/github/tag/luparev22/chessviz.svg?label=pre-release"> <img src="https://img.shields.io/github/license/luparev22/chessviz.svg?color=1283c3"> <img src="https://img.shields.io/github/last-commit/luparev22/chessviz.svg?color=1283c3">
 </p>
+
+---
+
+<span align="center">
+<a href="https://discord.gg/Yxyw77r"><img src="https://img.shields.io/static/v1.svg?label=%20&message=Discord&colorA=7289da&colorB=36393e&style=for-the-badge&logo=discord&logoColor=ffffff&link="></a> <a href="https://vk.com/nekto100"><img src="https://img.shields.io/static/v1.svg?label=%20&message=Vkontakte&colorA=4d76a5&colorB=36393e&style=for-the-badge&logo=vk&logoColor=ffffff"></a> <a href="https://steamcommunity.com/id/theact1on"><img src="https://img.shields.io/static/v1.svg?label=%20&message=Steam&colorA=171a21&colorB=36393e&style=for-the-badge&logo=steam&logoColor=ffffff"></a>
+</span>
+
+---
 
 # About chessviz
 
