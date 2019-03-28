@@ -9,9 +9,9 @@
 
 ---
 
-<span align="center">
+<p align="center">
 <a href="https://discord.gg/Yxyw77r"><img src="https://img.shields.io/static/v1.svg?label=%20&message=Discord&colorA=7289da&colorB=36393e&style=for-the-badge&logo=discord&logoColor=ffffff&link="></a> <a href="https://vk.com/nekto100"><img src="https://img.shields.io/static/v1.svg?label=%20&message=Vkontakte&colorA=4d76a5&colorB=36393e&style=for-the-badge&logo=vk&logoColor=ffffff"></a> <a href="https://steamcommunity.com/id/theact1on"><img src="https://img.shields.io/static/v1.svg?label=%20&message=Steam&colorA=171a21&colorB=36393e&style=for-the-badge&logo=steam&logoColor=ffffff"></a>
-</span>
+</p>
 
 ---
 
