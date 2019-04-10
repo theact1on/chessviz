@@ -1,6 +1,7 @@
 #include "board_read.h"
 #include "board_plain.h"
 #include "board_print_html.h"
+#include "check_move.h"
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_YELLOW "\x1b[33m"
@@ -43,8 +44,18 @@ void checkSteps(char* txt, char board[][8])
         target = fgetc(input_file);
         int its_black = 0;
         while (1) {
-            if (target == ' ' || target == '\n' || target == EOF) {
-                if (target == '\n' || target == EOF) {
+            if ((target == ' ' || target == '\n' || target == EOF
+                 || target == (char)13)
+                && (pars != 6)) {
+                if (target == (char)13) {
+                    target = fgetc(input_file);
+                }
+                if (target == '\n' || target == EOF || target == (char)10) {
+                    int error = checkMove(&white, board);
+                    if (!(error == 1)) {
+                        errorHandler(error, &white);
+                        exit(1);
+                    }
                     moveFigures(&white, board);
                     white = sw_def;
                     its_black = 0;
@@ -52,6 +63,11 @@ void checkSteps(char* txt, char board[][8])
                            "SUCCESS. Line %s.\n" ANSI_COLOR_RESET,
                            white.num);
                     break;
+                }
+                int error = checkMove(&white, board);
+                if (!(error == 1)) {
+                    errorHandler(error, &white);
+                    exit(1);
                 }
                 moveFigures(&white, board);
                 white = sw_def;
