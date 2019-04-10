@@ -191,3 +191,55 @@ void checkSteps(char* txt, char board[][8])
         }
     }
 }
+
+void errorHandler(int Error, struct step_white* move)
+{
+    if (Error == 0) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Figure " ANSI_COLOR_GREEN "%c" ANSI_COLOR_RED
+               " can not move from " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+               " to " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+               "\n" ANSI_COLOR_RESET,
+               move->num,
+               toupper(move->figure),
+               move->from,
+               move->to);
+    }
+    if (Error == 3) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Figure " ANSI_COLOR_GREEN "%c" ANSI_COLOR_RED
+               " not found on field " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+               "\n" ANSI_COLOR_RESET,
+               move->num,
+               toupper(move->figure),
+               move->from);
+    }
+
+    if (Error == 4) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Type of move is '" ANSI_COLOR_GREEN
+               "x" ANSI_COLOR_RED "' but in the field " ANSI_COLOR_GREEN
+               "%s" ANSI_COLOR_RED " there is no figure.\n" ANSI_COLOR_RESET,
+               move->num,
+               move->to);
+    }
+
+    if (Error == 5) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Type of move is '" ANSI_COLOR_GREEN
+               "-" ANSI_COLOR_RED "' but in the field " ANSI_COLOR_GREEN
+               "%s" ANSI_COLOR_RED " there is a figure.\n" ANSI_COLOR_RESET,
+               move->num,
+               move->to);
+    }
+
+    if (Error == 6) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Type of stroke is '" ANSI_COLOR_GREEN
+               "x" ANSI_COLOR_RED "' but in the field " ANSI_COLOR_GREEN
+               "%s" ANSI_COLOR_RED
+               " there is a friendly color figure.\n" ANSI_COLOR_RESET,
+               move->num,
+               move->to);
+    }
+}

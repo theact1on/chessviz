@@ -16,4 +16,5 @@ struct step_white {
 };
 
 void checkSteps(char* txt, char board[][8]);
+void errorHandler(int Error, struct step_white* move);
 #endif
