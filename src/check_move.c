@@ -89,6 +89,96 @@ int checkMove(struct step_white* figure, char board[][8])
         }
     }
 
+    /*ФЕРЗЬ*/
+    if (figure->figure == 'Q' || figure->figure == 'q') {
+        if (from_digit == to_digit) {
+            if (from_liter > to_liter) {
+                while (1) {
+                    from_liter--;
+                    if (from_liter == to_liter)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        ;
+                        return 0;
+                    }
+                }
+            } else {
+                while (1) {
+                    from_liter++;
+                    if (from_liter == to_liter)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            }
+        } else if (from_liter == to_liter) {
+            if (from_digit > to_digit) {
+                while (1) {
+                    from_digit--;
+                    if (from_digit == to_digit)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            } else {
+                while (1) {
+                    from_digit++;
+                    if (from_digit == to_digit)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            }
+        } else if (from_liter > to_liter) {
+            if (from_digit > to_digit) {
+                while (1) {
+                    from_digit--;
+                    from_liter--;
+                    if (from_liter == to_liter && from_digit == to_digit)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            } else if (from_digit < to_digit) {
+                while (1) {
+                    from_digit++;
+                    from_liter--;
+                    if (from_liter == to_liter && from_digit == to_digit)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            }
+        } else if (from_liter < to_liter) {
+            if (from_digit > to_digit) {
+                while (1) {
+                    from_digit--;
+                    from_liter++;
+                    if (from_liter == to_liter && from_digit == to_digit)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            } else if (from_digit < to_digit) {
+                while (1) {
+                    from_digit++;
+                    from_liter++;
+                    if (from_liter == to_liter && from_digit == to_digit)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            }
+        }
+    }
+
     /*КОНЬ*/
     if (figure->figure == 'N' || figure->figure == 'n') {
         if (abs(from_digit - to_digit) == 1
