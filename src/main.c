@@ -1,7 +1,7 @@
-#include "board.h"
 #include "board_print_html.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include "board_read.h"
+#include <stdio.h>
+#include <stdlib.h>
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_RESET "\x1b[0m"
 
@@ -79,6 +79,6 @@ int main(int argc, char* argv[])
         </html>)");
     fclose(output_html);
     printf(ANSI_COLOR_GREEN
-           "----------------ALL SUCCESS----------------\n\n" ANSI_COLOR_RESET);
+           "\nThe program has successfully completed.\n\n" ANSI_COLOR_RESET);
     return 0;
 }

@@ -1,5 +1,7 @@
-#include "board.h"
+#include "board_read.h"
+#include "board_plain.h"
 #include "board_print_html.h"
+#include "check_move.h"
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_YELLOW "\x1b[33m"
@@ -18,8 +20,9 @@ void checkSteps(char* txt, char board[][8])
     }
     rewind(input_file);
     while (!feof(input_file)) {
+        struct step_white sw_def = {"", 'P', "", "", ' ', ' '};
         char target = fgetc(input_file);
-        step_white white;
+        struct step_white white = sw_def;
         int pars = 1;
         while (target != ' ') {
             if (!isdigit(target) && target != '.') {
@@ -37,19 +40,37 @@ void checkSteps(char* txt, char board[][8])
             strcat(white.num, bufer_temp);
             target = fgetc(input_file);
         }
-
+        strcpy(sw_def.num, white.num);
         target = fgetc(input_file);
-        bool its_black = false;
+        int its_black = 0;
         while (1) {
-            if (target == ' ' || target == '\n' || target == EOF) {
-                if (target == '\n' || target == EOF) {
+            if ((target == ' ' || target == '\n' || target == EOF
+                 || target == (char)13)
+                && (pars != 6)) {
+                if (target == (char)13) {
+                    target = fgetc(input_file);
+                }
+                if (target == '\n' || target == EOF || target == (char)10) {
+                    int error = checkMove(&white, board);
+                    if (!(error == 1)) {
+                        errorHandler(error, &white);
+                        exit(1);
+                    }
                     moveFigures(&white, board);
-                    white.clean();
-                    its_black = false;
+                    white = sw_def;
+                    its_black = 0;
+                    printf(ANSI_COLOR_GREEN
+                           "SUCCESS. Line %s.\n" ANSI_COLOR_RESET,
+                           white.num);
                     break;
                 }
+                int error = checkMove(&white, board);
+                if (!(error == 1)) {
+                    errorHandler(error, &white);
+                    exit(1);
+                }
                 moveFigures(&white, board);
-                white.clean();
+                white = sw_def;
                 pars = 1;
                 target = fgetc(input_file);
             }
@@ -166,12 +187,12 @@ void checkSteps(char* txt, char board[][8])
                     || target == 'Q' || target == 'R' || target == 'B'
                     || target == 'N' || target == 'e') {
                     white.shah_mat = target;
-                    target = fgetc(input_file);
                     if (target == 'e') {
                         target = fgetc(input_file);
                         target = fgetc(input_file);
                         target = fgetc(input_file);
                     }
+                    target = fgetc(input_file);
                     continue;
                 } else {
                     printf(ANSI_COLOR_RED
@@ -187,67 +208,54 @@ void checkSteps(char* txt, char board[][8])
     }
 }
 
-void moveFigures(step_white* white_step, char board[][8])
+void errorHandler(int Error, struct step_white* move)
 {
-    if ((int)white_step->from[0] < 97 || (int)white_step->from[0] > 104
-        || (int)white_step->from[1] < 49 || (int)white_step->from[1] > 56) {
-        printf(ANSI_COLOR_RED "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
-                              " line. ERROR. Field " ANSI_COLOR_GREEN
-                              "%s" ANSI_COLOR_RED " not found.\n",
-               white_step->num,
-               white_step->from);
-        printf("ERROR>>FIELD_NOT_FOUND\nExiting...\n" ANSI_COLOR_RESET);
-        exit(1);
-    }
-
-    int step_liter = (int)white_step->from[0] - 97;
-    int step_digit = 8 - ((int)white_step->from[1] - 48) % 9;
-
-    if (board[step_digit][step_liter] == white_step->figure) {
-        board[step_digit][step_liter] = ' ';
-        if (white_step->how == 'x') {
-            step_liter = (int)white_step->to[0] - 97;
-            step_digit = 8 - ((int)white_step->to[1] - 48) % 9;
-            if (board[step_digit][step_liter] == ' ') {
-                printf(ANSI_COLOR_RED
-                       "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
-                       " line. ERROR. Type of stroke " ANSI_COLOR_GREEN
-                       "%c" ANSI_COLOR_RED ", but in field " ANSI_COLOR_GREEN
-                       "%s" ANSI_COLOR_RED " dont have figure.\n",
-                       white_step->num,
-                       white_step->how,
-                       white_step->to);
-                printf("ERROR>>TAKE_BUT_FIELD_DONT_HAVE_FIGURE\nExiting..."
-                       "\n" ANSI_COLOR_RESET);
-            }
-        }
-        step_liter = (int)white_step->to[0] - 97;
-        step_digit = 8 - ((int)white_step->to[1] - 48) % 9;
-        board[step_digit][step_liter] = white_step->figure;
-    } else {
+    if (Error == 0) {
         printf(ANSI_COLOR_RED
-               "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
-               " line. ERROR. Figure " ANSI_COLOR_GREEN "%c" ANSI_COLOR_RED
-               " not found on " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
-               " field.\n",
-               white_step->num,
-               white_step->figure,
-               white_step->from);
-        printf("ERROR>>FIGURE_NOT_ON_FIELD_FROM\nExiting..."
-               "\n" ANSI_COLOR_RESET);
-        exit(1);
+               "ERROR in %s line. Figure " ANSI_COLOR_GREEN "%c" ANSI_COLOR_RED
+               " can not move from " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+               " to " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+               "\n" ANSI_COLOR_RESET,
+               move->num,
+               toupper(move->figure),
+               move->from,
+               move->to);
+    }
+    if (Error == 3) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Figure " ANSI_COLOR_GREEN "%c" ANSI_COLOR_RED
+               " not found on field " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+               "\n" ANSI_COLOR_RESET,
+               move->num,
+               toupper(move->figure),
+               move->from);
     }
 
-    char str_info[30];
-    white_step->figure = toupper(white_step->figure);
-    sprintf(str_info,
-            "%s. %c%s%c%s%c",
-            white_step->num,
-            white_step->figure,
-            white_step->from,
-            white_step->how,
-            white_step->to,
-            white_step->shah_mat);
+    if (Error == 4) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Type of move is '" ANSI_COLOR_GREEN
+               "x" ANSI_COLOR_RED "' but in the field " ANSI_COLOR_GREEN
+               "%s" ANSI_COLOR_RED " there is no figure.\n" ANSI_COLOR_RESET,
+               move->num,
+               move->to);
+    }
 
-    outputHTML(board, str_info);
+    if (Error == 5) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Type of move is '" ANSI_COLOR_GREEN
+               "-" ANSI_COLOR_RED "' but in the field " ANSI_COLOR_GREEN
+               "%s" ANSI_COLOR_RED " there is a figure.\n" ANSI_COLOR_RESET,
+               move->num,
+               move->to);
+    }
+
+    if (Error == 6) {
+        printf(ANSI_COLOR_RED
+               "ERROR in %s line. Type of stroke is '" ANSI_COLOR_GREEN
+               "x" ANSI_COLOR_RED "' but in the field " ANSI_COLOR_GREEN
+               "%s" ANSI_COLOR_RED
+               " there is a friendly color figure.\n" ANSI_COLOR_RESET,
+               move->num,
+               move->to);
+    }
 }
