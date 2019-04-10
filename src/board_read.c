@@ -19,8 +19,9 @@ void checkSteps(char* txt, char board[][8])
     }
     rewind(input_file);
     while (!feof(input_file)) {
+        struct step_white sw_def = {"", 'P', "", "", ' ', ' '};
         char target = fgetc(input_file);
-        step_white white;
+        struct step_white white = sw_def;
         int pars = 1;
         while (target != ' ') {
             if (!isdigit(target) && target != '.') {
@@ -38,24 +39,29 @@ void checkSteps(char* txt, char board[][8])
             strcat(white.num, bufer_temp);
             target = fgetc(input_file);
         }
-
+        strcpy(sw_def.num, white.num);
         target = fgetc(input_file);
-        bool its_black = false;
+        int its_black = 0;
         while (1) {
             if (target == ' ' || target == '\n' || target == EOF) {
                 if (target == '\n' || target == EOF) {
                     moveFigures(&white, board);
-                    white.clean();
-                    its_black = false;
+                    white = sw_def;
+                    its_black = 0;
+                    printf(ANSI_COLOR_GREEN
+                           "SUCCESS. Line %s.\n" ANSI_COLOR_RESET,
+                           white.num);
                     break;
                 }
                 moveFigures(&white, board);
-                white.clean();
+                white = sw_def;
                 pars = 1;
                 target = fgetc(input_file);
             }
             if (pars == 1) {
-                if (target == 'K' || target == 'Q' || target == 'R' || target == 'B' || target == 'N' || ((int)target >= 94 && (int)target <= 122)) {
+                if (target == 'K' || target == 'Q' || target == 'R'
+                    || target == 'B' || target == 'N'
+                    || ((int)target >= 94 && (int)target <= 122)) {
                     if ((int)target < 94 || (int)target > 122) {
                         if (its_black) {
                             white.figure = (char)(target + 32);
@@ -161,14 +167,16 @@ void checkSteps(char* txt, char board[][8])
                 }
             }
             if (pars == 7) {
-                if (target == '#' || target == '+' || target == 'K' || target == 'Q' || target == 'R' || target == 'B' || target == 'N' || target == 'e') {
+                if (target == '#' || target == '+' || target == 'K'
+                    || target == 'Q' || target == 'R' || target == 'B'
+                    || target == 'N' || target == 'e') {
                     white.shah_mat = target;
-                    target = fgetc(input_file);
                     if (target == 'e') {
                         target = fgetc(input_file);
                         target = fgetc(input_file);
                         target = fgetc(input_file);
                     }
+                    target = fgetc(input_file);
                     continue;
                 } else {
                     printf(ANSI_COLOR_RED

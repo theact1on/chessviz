@@ -11,8 +11,13 @@
 
 void moveFigures(struct step_white* white_step, char board[][8])
 {
-    if ((int)white_step->from[0] < 97 || (int)white_step->from[0] > 104 || (int)white_step->from[1] < 49 || (int)white_step->from[1] > 56) {
-        printf(ANSI_COLOR_RED "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED " line. ERROR. Field " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED " not found.\n", white_step->num, white_step->from);
+    if ((int)white_step->from[0] < 97 || (int)white_step->from[0] > 104
+        || (int)white_step->from[1] < 49 || (int)white_step->from[1] > 56) {
+        printf(ANSI_COLOR_RED "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+                              " line. ERROR. Field " ANSI_COLOR_GREEN
+                              "%s" ANSI_COLOR_RED " not found.\n",
+               white_step->num,
+               white_step->from);
         printf("ERROR>>FIELD_NOT_FOUND\nExiting...\n" ANSI_COLOR_RESET);
         exit(1);
     }
@@ -26,8 +31,11 @@ void moveFigures(struct step_white* white_step, char board[][8])
             step_liter = (int)white_step->to[0] - 97;
             step_digit = 8 - ((int)white_step->to[1] - 48) % 9;
             if (board[step_digit][step_liter] == ' ') {
-                printf(ANSI_COLOR_RED "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED " line. ERROR. Type of stroke " ANSI_COLOR_GREEN "%c" ANSI_COLOR_RED ", but in field " ANSI_COLOR_GREEN
-                                      "%s" ANSI_COLOR_RED " dont have figure.\n",
+                printf(ANSI_COLOR_RED
+                       "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+                       " line. ERROR. Type of stroke " ANSI_COLOR_GREEN
+                       "%c" ANSI_COLOR_RED ", but in field " ANSI_COLOR_GREEN
+                       "%s" ANSI_COLOR_RED " dont have figure.\n",
                        white_step->num,
                        white_step->how,
                        white_step->to);
@@ -39,7 +47,11 @@ void moveFigures(struct step_white* white_step, char board[][8])
         step_digit = 8 - ((int)white_step->to[1] - 48) % 9;
         board[step_digit][step_liter] = white_step->figure;
     } else {
-        printf(ANSI_COLOR_RED "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED " line. ERROR. Figure " ANSI_COLOR_GREEN "%c" ANSI_COLOR_RED " not found on " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED " field.\n",
+        printf(ANSI_COLOR_RED
+               "In " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+               " line. ERROR. Figure " ANSI_COLOR_GREEN "%c" ANSI_COLOR_RED
+               " not found on " ANSI_COLOR_GREEN "%s" ANSI_COLOR_RED
+               " field.\n",
                white_step->num,
                white_step->figure,
                white_step->from);
@@ -50,7 +62,14 @@ void moveFigures(struct step_white* white_step, char board[][8])
 
     char str_info[30];
     white_step->figure = toupper(white_step->figure);
-    sprintf(str_info, "%s. %c%s%c%s%c", white_step->num, white_step->figure, white_step->from, white_step->how, white_step->to, white_step->shah_mat);
+    sprintf(str_info,
+            "%s. %c%s%c%s%c",
+            white_step->num,
+            white_step->figure,
+            white_step->from,
+            white_step->how,
+            white_step->to,
+            white_step->shah_mat);
 
     outputHTML(board, str_info);
 }
