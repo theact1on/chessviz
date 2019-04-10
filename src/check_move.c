@@ -30,5 +30,50 @@ int checkMove(struct step_white* figure, char board[][8])
         && (int)figure->figure <= 90) {
         return 6;
     }
+
+    if (figure->figure == 'R' || figure->figure == 'r') {
+        if (from_liter == to_liter) {
+            if (from_digit > to_digit) {
+                while (1) {
+                    from_digit--;
+                    if (from_digit == to_digit)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            } else {
+                while (1) {
+                    from_digit++;
+                    if (from_digit == to_digit)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            }
+        } else if (from_digit == to_digit) {
+            if (from_liter > to_liter) {
+                while (1) {
+                    from_liter--;
+                    if (from_liter == to_liter)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            } else {
+                while (1) {
+                    from_liter++;
+                    if (from_liter == to_liter)
+                        return 1;
+                    if (board[from_digit][from_liter] != ' ') {
+                        return 0;
+                    }
+                }
+            }
+        }
+    }
+
     return 0;
 }
