@@ -240,5 +240,42 @@ int checkMove(struct step_white* figure, char board[][8])
         }
     }
 
+    /*ПЕШКА*/
+    if (figure->figure == 'P' || figure->figure == 'p') {
+        if (figure->figure == 'P') {
+            if (figure->how == '-' && from_digit == 6
+                && from_liter - to_liter == 0 && from_digit - to_digit == 2
+                && board[from_digit - 1][from_liter] == ' ') {
+                return 1;
+            } else if (
+                    figure->how == 'x' && from_digit - to_digit == 1
+                    && abs(from_liter - to_liter) == 1) {
+                return 1;
+            } else if (
+                    figure->how == '-' && from_liter - to_liter == 0
+                    && from_digit - to_digit == 1) {
+                return 1;
+            }
+            // else if(figure->shah_mat == 'e')
+
+        } else if (figure->figure == 'p') {
+            if (figure->how == '-' && from_digit == 1
+                && from_liter - to_liter == 0 && to_digit - from_digit == 2
+                && board[from_digit + 1][from_liter] == ' ') {
+                return 1;
+            } else if (
+                    figure->how == 'x' && to_digit - from_digit == 1
+                    && abs(from_liter - to_liter) == 1) {
+                return 1;
+            } else if (
+                    figure->how == '-' && from_liter - to_liter == 0
+                    && to_digit - from_digit == 1) {
+                return 1;
+            }
+            // else if(figure->shah_mat == 'e')
+        } else {
+        }
+    }
+
     return 0;
 }
