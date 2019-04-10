@@ -32,22 +32,13 @@ build/src/check_move.o: src/check_move.c
 
 -include build/test/*.d
 
-bin/main-test: build/test/main.o build/test/board_print_html.o build/test/board_read.o build/test/board_plain.o build/test/check_move.o build/test/tests.o
+bin/main-test: build/test/main.o build/test/check_move.o build/test/tests.o
 	$(COMPILER) $(FLAGS) -o $@ $^
 
 build/test/main.o: test/main.c
 	$(COMPILER) -I thirdparty src $(FLAGS) -MMD -c -o $@ $<
 
 build/test/tests.o: test/tests.c
-	$(COMPILER) -I thirdparty src $(FLAGS) -MMD -c -o $@ $<
-
-build/test/board_print_html.o: src/board_print_html.c
-	$(COMPILER) -I thirdparty src $(FLAGS) -MMD -c -o $@ $<
-
-build/test/board_read.o: src/board_read.c
-	$(COMPILER) -I thirdparty src $(FLAGS) -MMD -c -o $@ $<
-
-build/test/board_plain.o: src/board_plain.c
 	$(COMPILER) -I thirdparty src $(FLAGS) -MMD -c -o $@ $<
 
 build/test/check_move.o: src/check_move.c
