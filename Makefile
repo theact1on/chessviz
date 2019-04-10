@@ -36,17 +36,16 @@ bin/main-test: build/test/main.o build/test/check_move.o build/test/tests.o
 	$(COMPILER) $(FLAGS) -o $@ $^
 
 build/test/main.o: test/main.c
-	$(COMPILER) -I thirdparty src $(FLAGS) -MMD -c -o $@ $<
+	$(COMPILER) -I thirdparty -I src $(FLAGS) -MMD -c -o $@ $<
 
 build/test/tests.o: test/tests.c
-	$(COMPILER) -I thirdparty src $(FLAGS) -MMD -c -o $@ $<
+	$(COMPILER) -I thirdparty -I src $(FLAGS) -MMD -c -o $@ $<
 
 build/test/check_move.o: src/check_move.c
-	$(COMPILER) -I thirdparty src $(FLAGS) -MMD -c -o $@ $<
+	$(COMPILER) -I thirdparty -I src $(FLAGS) -MMD -c -o $@ $<
 
 start: bin/main
 	bin/main
 
 clean:
-	rm build/src/*
-	rm build/test/*
+	rm -rf build/src/* build/test/*
