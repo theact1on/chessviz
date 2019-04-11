@@ -1,4 +1,7 @@
 bin/*
 chessviz.html
-build/*
+build/src/*.o
+build/src/*.d
+build/test/*.o
+build/test/*.d
 *.txt

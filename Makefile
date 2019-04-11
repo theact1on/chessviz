@@ -48,4 +48,4 @@ start: bin/main
 	bin/main
 
 clean:
-	rm -rf build/src/* build/test/*
+	rm -rf build/src/*.o build/src/*.d build/test/*.o built/test/*.d
