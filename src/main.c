@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_RESET "\x1b[0m"
+#define ANSI_COLOR_YELLOW "\x1b[33m"
 
 int main(int argc, char* argv[])
 {
@@ -79,6 +80,8 @@ int main(int argc, char* argv[])
         </html>)");
     fclose(output_html);
     printf(ANSI_COLOR_GREEN
-           "\nThe program has successfully completed.\n\n" ANSI_COLOR_RESET);
+           "\nThe program has successfully completed.\nOpen "
+           "file" ANSI_COLOR_YELLOW " chessviz.html " ANSI_COLOR_GREEN
+           "for see visualization.\n\n" ANSI_COLOR_RESET);
     return 0;
 }
