@@ -1,4 +1,4 @@
 language: c
-script: make
+script: make && make test && bin/main-test
 compiler:
   - gcc
