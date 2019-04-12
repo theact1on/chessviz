@@ -15,7 +15,7 @@ CTEST(king, take_friend)
                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}};
     struct step_white figure = {"1", 'k', "a8", "b7", 'x', ' '};
-    ASSERT_EQUAL(0, checkMove(&figure, board));
+    ASSERT_EQUAL(6, checkMove(&figure, board));
 }
 
 CTEST(king, angle)
